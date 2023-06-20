@@ -1,7 +1,7 @@
 import GET_USER_BY_USERNAME from "../../../../data/queried/getUserByUsername";
-import apiClient from "../../../../data/apollo-client";
 import {compare} from "bcrypt";
 import jwt from "jsonwebtoken";
+import {authApiClient} from "../../../../data/apollo-client";
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
@@ -10,11 +10,12 @@ export default async function handler(req, res) {
     
     const {username, password} = req.body
     const filter = `data/username/iv eq '${username}'`;
-    const data = await apiClient().query({
+    const authClient = await authApiClient();
+    const {data, error} = await authClient.query({
       query: GET_USER_BY_USERNAME,
       variables: { filter: filter },
     });
-    const results = data?.data?.queryUser2Contents[0]?.flatData;
+    const results = data?.queryUser2Contents[0]?.flatData
     if (!results) {
       return res.status(400).json({message: "this username is not available"})
     }
@@ -26,7 +27,10 @@ export default async function handler(req, res) {
     if (!checkPassword || results.username !== username) {
       return res.status(400).json({message: "Username and Password doesn't match"})
     }
-    const token = jwt.sign({ username }, 'your-secret-key');
+    const token = jwt.sign({ data: {
+      username:username,
+      roles:results.roles
+      } }, 'your-secret-key', { expiresIn: 60*60*24 });
     return res.status(200).json({token:token});
   } else {
     res

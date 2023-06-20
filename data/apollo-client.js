@@ -50,7 +50,6 @@ const apiClient = () => {
         },
       }),
     });
-  
   if (!apolloClient) apolloClient = client;
   
   return client;

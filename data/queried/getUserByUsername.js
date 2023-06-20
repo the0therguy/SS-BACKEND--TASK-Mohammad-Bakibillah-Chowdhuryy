@@ -7,6 +7,7 @@ const GET_USER_BY_USERNAME = gql`
       flatData {
         username
         password
+        roles
       }
     }
   }
