@@ -15,6 +15,10 @@ export default async function handler(req, res) {
       query: GET_USER_BY_USERNAME,
       variables: { filter: filter },
     });
+    if (error) {
+      console.log(error)
+      return res.status(400).json({message: "Something went wrong. Please try again later"})
+    }
     const results = data?.queryUser2Contents[0]?.flatData
     if (!results) {
       return res.status(400).json({message: "this username is not available"})

@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     if (!req.body)
       return res?.status(404)?.json({ error: "Don't Have form data" });
     
-    const { email, username, password } = req.body;
+    const { email, username, password, roles } = req.body;
     const hash_pass = await hash(password, 12);
     const authClient = await authApiClient();
     const { data, errors } = await authClient.mutate({
@@ -18,6 +18,7 @@ export default async function handler(req, res) {
         email:email,
         username: username,
         password: hash_pass,
+        roles: roles
       },
     });
     if (errors === undefined) {
