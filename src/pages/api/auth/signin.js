@@ -10,7 +10,6 @@ export default async function handler(req, res) {
     
     const {username, password} = req.body
     const filter = `data/username/iv eq '${username}'`;
-    console.log(filter)
     const data = await apiClient().query({
       query: GET_USER_BY_USERNAME,
       variables: { filter: filter },
