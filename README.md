@@ -1,8 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a test project, created some backend api for creating and fetching movie or tv shows.
+# Technology Used:
+Language: JavaScript
+
+Backend: NextJS
+
+CMS: Squidex
+
+Database: MongoDB
+
+Data-fetching: GraphQL
 
 ## Getting Started
 
-First, run the development server:
+First, Install the dependency
+```bash
+npm install
+#or
+yarn
+```
+
+then run the development server:
 
 ```bash
 npm run dev
@@ -22,17 +39,69 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+# base_url = http://localhost:3000/api
 
-To learn more about Next.js, take a look at the following resources:
+API: base_url/auth/signup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Method: POST
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```json
+{
+  "username": "string",
+  "email": "string",
+  "password": "string",
+  "roles": "admin if you want to create and admin user or null if you want to create a normal user"
+}
+```
+API: base_url/auth/signin
 
-## Deploy on Vercel
+Method: POST
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```json
+{
+  "username": "string",
+  "password": "string"
+}
+```
+API: base_url/shows/movie-list
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Method: GET
+
+It will return the movie list
+
+API: base_url/shows/tv-shows-list
+
+Method: GET
+
+It will return the return the tv show list
+
+API: base_url/shows/<uuid>
+
+Method: GET
+
+It will filter the show based on this id.
+
+API: base_url/shows/create
+
+Method: POST
+
+Authorization: Bearer <jwt token after successfully login>
+
+```json
+{
+  "showName": "string",
+  "duration": "Float",
+  "category": "Movie/ TV Show",
+  "casts": [
+    {
+      "name": "string",
+      "roleName": "string"
+    }
+  ],
+  "director": [
+    {
+      "name": "string"
+    }
+  ]
+}
+```
