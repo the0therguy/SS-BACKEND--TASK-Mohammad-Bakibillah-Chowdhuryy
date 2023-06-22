@@ -105,3 +105,16 @@ Authorization: Bearer jwt token after successfully login
   ]
 }
 ```
+
+## Docker
+
+1. Install Docker
+2. Open Docker
+3. Execute this command to build your container
+```bash
+docker build -t ss-backend-task-mohammad-bakibillah-chowdhuryy .
+```
+4. Run your container
+```bash
+docker run -p 3000:3000 ss-backend-task-mohammad-bakibillah-chowdhuryy
+```
