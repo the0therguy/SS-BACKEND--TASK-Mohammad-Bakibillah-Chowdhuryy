@@ -75,7 +75,7 @@ Method: GET
 
 It will return the return the tv show list
 
-API: base_url/shows/<uuid>
+API: base_url/shows/uuid
 
 Method: GET
 
@@ -85,7 +85,7 @@ API: base_url/shows/create
 
 Method: POST
 
-Authorization: Bearer <jwt token after successfully login>
+Authorization: Bearer jwt token after successfully login
 
 ```json
 {
